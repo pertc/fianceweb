@@ -11,8 +11,9 @@ MIDDLEWARE_CLASSES_CUSTOM = [
 # 自定义APP
 INSTALLED_APPS_CUSTOM = [
     'apps.user',
-    'course',
+    'apps.course',
 ]
+
 
 # ===============================================================================
 # 日志级别
