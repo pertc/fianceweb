@@ -1,1 +1,1 @@
-from django.urls import path,includefrom .user import urls as user_urlsurlpatterns = [    path('user_api/', include(user_urls)),    #path('course/', include(course_urls)),]
+from django.urls import path,includefrom .user import urls as user_urlsurlpatterns = [    path('user/', include(user_urls)),    #path('course/', include(course_urls)),]
