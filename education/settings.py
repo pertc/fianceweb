@@ -21,6 +21,7 @@ TO_ABS_PATH = lambda filename: os.path.join(BASE_DIR, filename)
 sys.path.insert(0, BASE_DIR)
 sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 sys.path.insert(0, os.path.join(BASE_DIR, 'libs'))
+sys.path.insert(0, os.path.join(BASE_DIR, 'include'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
