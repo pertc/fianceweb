@@ -29,5 +29,15 @@ def check_verification_code(kwargs):
     else:
         raise PubErrorCustom("验证码不存在！")
 
+def check_referee_name(kwargs):
+    referee_name=kwargs.get('referee_name')
+    if referee_name:
+        try:
+            Users.objects.get(mobile=referee_name)
+        except Users.DoesNotExist:
+            raise PubErrorCustom("推荐人不存在！")
+
+
+
 
 

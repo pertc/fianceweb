@@ -28,6 +28,21 @@ class Token(models.Model):
     def __str__(self):
         return self.key
 
+class Login(models.Model):
+
+    mobile=models.CharField(max_length=11,verbose_name='手机号',null=False)
+    createtime=models.BigIntegerField(default=0)
+
+    def save(self, *args, **kwargs):
+        if not self.createtime:
+            self.createtime = time.mktime(timezone.now().timetuple())
+        return super(Login, self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = '用户登录表'
+        verbose_name_plural = verbose_name
+        db_table = 'login'
+
 class Users(models.Model):
 
     userid=models.BigAutoField(primary_key=True)
@@ -87,7 +102,7 @@ class Verification(models.Model):
         verbose_name_plural = verbose_name
         db_table = 'verification'
 
-class UserAccount(models.Model):
+class Account(models.Model):
 
     userid = models.BigIntegerField()
     activation = models.IntegerField(verbose_name="激活码",default=0)
@@ -100,21 +115,6 @@ class UserAccount(models.Model):
         verbose_name = '用户账户余额表'
         verbose_name_plural = verbose_name
         db_table = 'account'
-
-class Login(models.Model):
-
-    mobile=models.CharField(max_length=11,verbose_name='手机号',null=False)
-    createtime=models.BigIntegerField(default=0)
-
-    def save(self, *args, **kwargs):
-        if not self.createtime:
-            self.createtime = time.mktime(timezone.now().timetuple())
-        return super(Login, self).save(*args, **kwargs)
-
-    class Meta:
-        verbose_name = '用户登录表'
-        verbose_name_plural = verbose_name
-        db_table = 'login'
 
 
 
