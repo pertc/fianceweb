@@ -50,7 +50,7 @@ class Users(models.Model):
     username=models.CharField(max_length=60,verbose_name="名称",default='')
     passwd=models.CharField(max_length=60,verbose_name='密码',null=False)
     pay_passwd=models.CharField(max_length=60,verbose_name='支付密码',null=False)
-    referee_name=models.CharField(max_length=60,verbose_name='推荐人手机号',default='admin')
+    referee_name=models.CharField(max_length=60,verbose_name='推荐人手机号')
     createtime=models.BigIntegerField(default=0)
 
     def save(self, *args, **kwargs):
@@ -116,5 +116,14 @@ class Account(models.Model):
         verbose_name_plural = verbose_name
         db_table = 'account'
 
+
+class Agent(models.Model):
+    mobile = models.CharField(max_length=11)
+    mobiles = models.TextField(verbose_name="代理线",default="")
+
+    class Meta:
+        verbose_name = '代理线'
+        verbose_name_plural = verbose_name
+        db_table = 'agent'
 
 
