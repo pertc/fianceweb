@@ -11,7 +11,7 @@ MIDDLEWARE_CLASSES_CUSTOM = [
 # 自定义APP
 INSTALLED_APPS_CUSTOM = [
     'apps.user',
-    'apps.course',
+    'apps.action',
 ]
 
 

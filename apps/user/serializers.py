@@ -3,7 +3,7 @@
 
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
-from apps.user.models import Users,UserDetail
+from apps.user.models import Users,UserDetail,Verification
 
 
 class UsersSerializer(serializers.ModelSerializer):
@@ -16,11 +16,6 @@ class UsersSerializer(serializers.ModelSerializer):
 				queryset=Users.objects.all(),
 				fields=('mobile',),
 				message="手机号重复！"
-			),
-			UniqueTogetherValidator(
-				queryset=Users.objects.all(),
-				fields=('username',),
-				message="用户名重复！"
 			),
 		]
 
@@ -36,4 +31,10 @@ class UsersDetailSerializer(serializers.ModelSerializer):
 				message="请勿重复填写资料！",
 			),
 		]
+
+class VerificationSerializer(serializers.ModelSerializer):
+	class Meta:
+		model=Verification
+		fields='__all__'
+
 

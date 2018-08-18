@@ -1,9 +1,10 @@
 import binascii
 import os
+import random
 import time
+import datetime
 from django.db import models
 from django.utils import timezone
-
 
 class Token(models.Model):
 
@@ -62,6 +63,43 @@ class UserDetail(models.Model):
         verbose_name = '用户详情'
         verbose_name_plural = verbose_name
         db_table = 'userdetail'
+
+class Verification(models.Model):
+    mobile = models.CharField(max_length=11)
+    code = models.CharField(max_length=4,default='')
+    validtime = models.BigIntegerField(default=0)
+    createtime = models.BigIntegerField(default=0)
+
+    def save(self, *args, **kwargs):
+        valid = 3  # min
+        if not self.code:
+            self.code = str(random.randint(1000, 9999))
+        t=timezone.now()
+        if not self.createtime:
+            self.createtime = time.mktime(t.timetuple())
+        if not self.validtime :
+            self.validtime = t + datetime.timedelta(minutes=valid)
+            self.validtime = time.mktime(self.validtime.timetuple())
+        return super(Verification, self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = '验证码表'
+        verbose_name_plural = verbose_name
+        db_table = 'verification'
+
+class UserAccount(models.Model):
+
+    userid = models.BigIntegerField()
+    activation = models.IntegerField(verbose_name="激活码",default=0)
+    buypower = models.DecimalField(verbose_name="认筹权",default=0.0,max_digits=18,decimal_places=2)
+    integral = models.DecimalField(verbose_name='VIP分',default=0.0,max_digits=18,decimal_places=2)
+    bonus =  models.DecimalField(verbose_name="股权分红",default=0.0,max_digits=18,decimal_places=2)
+    spread = models.DecimalField(verbose_name="推广股权",default=0.0,max_digits=18,decimal_places=2)
+
+    class Meta:
+        verbose_name = '用户账户余额表'
+        verbose_name_plural = verbose_name
+        db_table = 'account'
 
 class Login(models.Model):
 
